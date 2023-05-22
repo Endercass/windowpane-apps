@@ -7,6 +7,7 @@ message Manifest {
     string start = 2;
     reserved 3, 4; // Application settings, permissions
     Backend backend = 5;
+    string bin_dir = 6;
 }
 
 enum Backend {
