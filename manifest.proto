@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package windowpane_apps;
+
+message Manifest {
+    string app_name = 1;
+    string start = 2;
+    reserved 3, 4; // Application settings, permissions
+    Backend backend = 5;
+}
+
+enum Backend {
+    CANVAS = 0;
+    DOM = 1;
+    HTML = 2;
+    URL = 3;
+}
