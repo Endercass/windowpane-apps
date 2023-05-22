@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Manifest",
+    "definitions": {
+        "Manifest": {
+            "properties": {
+                "app_name": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string"
+                },
+                "backend": {
+                    "enum": [
+                        "CANVAS",
+                        0,
+                        "DOM",
+                        1,
+                        "HTML",
+                        2,
+                        "URL",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Backend"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Manifest"
+        }
+    }
+}
