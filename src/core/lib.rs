@@ -1,5 +1,6 @@
 include!(concat!(env!("OUT_DIR"), "/manifest/mod.rs"));
 use crate::manifest::Manifest;
+use protobuf::Message;
 use protobuf_json_mapping::{parse_from_str_with_options, ParseOptions};
 use std::fs::{self};
 use std::path::PathBuf;
@@ -19,4 +20,9 @@ pub fn read_manifest_json(file: PathBuf) -> Manifest {
         },
     )
     .expect("Could not parse input manifest.")
+}
+
+pub fn read_manifest_wpmf(file: PathBuf) -> Manifest {
+    let in_bytes = fs::read(file).expect("Could not read input manifest.");
+    Manifest::parse_from_bytes(&in_bytes).expect("Could not parse input manifest.")
 }
