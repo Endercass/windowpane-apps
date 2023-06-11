@@ -1,6 +1,6 @@
 {
   "$schema": "../../manifest.json",
-  "app_name": "Hello, World!",
+  "app_name": "Taskbar",
   "backend": "DOM",
   "start": "index.js",
   "bin_dir": "bin"

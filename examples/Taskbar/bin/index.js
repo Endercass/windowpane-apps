@@ -1,4 +1,4 @@
-export default (contentElement, fs) => {
+export default (contentElement, fs, name) => {
   let winroot = contentElement.parentElement;
   winroot.style.border = "none";
   winroot.style.bottom = 0;
@@ -33,7 +33,7 @@ export default (contentElement, fs) => {
   //   };
   // };
 
-  fs.readFile("/test2", (err, data) => {
+  fs.readFile(`/app/${name}/bin/taskbar.html`, (err, data) => {
     err && console.log(err);
     frame.src = URL.createObjectURL(new Blob([data]));
   });

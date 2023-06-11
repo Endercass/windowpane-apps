@@ -1,0 +1,7 @@
+{
+  "$schema": "../../manifest.json",
+  "app_name": "Hello, World!",
+  "backend": "HTML",
+  "start": "index.html",
+  "bin_dir": "bin"
+}
