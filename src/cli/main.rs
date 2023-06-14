@@ -47,7 +47,7 @@ fn main() {
     output_tarball.push(format!("{}.wpapp", digest(out_bytes.as_slice())));
 
     println!("Copying resources...");
-    copy_dir(args.include_path, bin).expect("Could not copy files from binpath.");
+    copy_dir(args.include_path, bin).expect("Could not copy files from include path.");
 
     let mut launch_script: PathBuf = args
         .manifest
@@ -60,7 +60,7 @@ fn main() {
     launch_script_out.push("launch.js");
 
     println!("Copying launch script...");
-    copy(launch_script, launch_script_out).expect("Could not copy files from binpath.");
+    copy(launch_script, launch_script_out).expect("Could not copy launch script.");
 
     let file = File::create(output_tarball).unwrap();
     let mut builder: Builder<File> = Builder::new(file);
