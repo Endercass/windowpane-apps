@@ -7,6 +7,6 @@ export default (contentElement, fs, name) => {
 
   fs.readFile(`/app/${name}/bin/index.html`, (err, data) => {
     err && console.log(err);
-    frame.src = URL.createObjectURL(new Blob([data]));
+    frame.src = URL.createObjectURL(new Blob([data], { type: "text/html" }));
   });
 };
