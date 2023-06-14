@@ -1,7 +1,15 @@
 {
-  "$schema": "../../manifest.json",
-  "app_name": "Hello, World!",
-  "backend": "HTML",
-  "start": "index.html",
-  "bin_dir": "bin"
+  "$schema": "../../schema/Manifest.json",
+  "group_id": "me.endercass.windowpane.examples",
+  "artifact_id": "helloworld",
+  "translation_file": "",
+  "settings": [
+    {
+      "$schema": "../../schema/Settings.json",
+      "key": "ui.secondary_greeting",
+      "setting_type": "STRING",
+      "default_string_value": "You can change me in settings"
+    }
+  ],
+  "backend": "DOM"
 }

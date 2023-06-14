@@ -4,8 +4,7 @@ use dircpy::copy_dir;
 
 use sha256::digest;
 use std::env::temp_dir;
-use std::fs::{self, remove_dir_all, File};
-use std::io::Error;
+use std::fs::{self, copy, remove_dir_all, File};
 use std::path::PathBuf;
 
 use tar::Builder;
@@ -19,6 +18,8 @@ struct Arguments {
     manifest: std::path::PathBuf,
     #[arg(short = 'o', long = "out", value_name = "output", value_hint = ValueHint::DirPath, help = "Folder in which the package will be placed")]
     out: std::path::PathBuf,
+    #[arg(short = 'i', long = "include", value_name = "include_path", value_hint = ValueHint::DirPath, help = "Folder to include in package, should contain source files (html for embedding, image files, etc)\nNOTE: Do not place your launch.js here.")]
+    include_path: std::path::PathBuf,
 }
 
 fn main() {
@@ -41,18 +42,26 @@ fn main() {
     bin.push("bin");
     println!("Creating binary directory...");
     fs::create_dir(bin.clone()).expect("Could not create directory");
-    let mut bin_path: PathBuf = args
-        .manifest
-        .parent()
-        .expect("Could not get parent of manifest.")
-        .to_path_buf();
-    bin_path.push(manifest_value.bin_dir);
 
     let mut output_tarball: PathBuf = args.out;
     output_tarball.push(format!("{}.wpapp", digest(out_bytes.as_slice())));
 
-    println!("Copying binaries...");
-    copy_dir(bin_path, bin).expect("Could not copy files from binpath.");
+    println!("Copying resources...");
+    copy_dir(args.include_path, bin).expect("Could not copy files from binpath.");
+
+    let mut launch_script: PathBuf = args
+        .manifest
+        .parent()
+        .expect("Could not get parent of manifest.")
+        .to_path_buf();
+    launch_script.push("launch.js");
+
+    let mut launch_script_out: PathBuf = tempfs.clone();
+    launch_script_out.push("launch.js");
+
+    println!("Copying launch script...");
+    copy(launch_script, launch_script_out).expect("Could not copy files from binpath.");
+
     let file = File::create(output_tarball).unwrap();
     let mut builder: Builder<File> = Builder::new(file);
     builder

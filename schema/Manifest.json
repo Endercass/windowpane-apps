@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/Manifest",
+  "definitions": {
+    "Manifest": {
+      "properties": {
+        "group_id": {
+          "type": "string"
+        },
+        "artifact_id": {
+          "type": "string"
+        },
+        "translation_file": {
+          "type": "string"
+        },
+        "settings": {
+          "items": {
+            "$ref": "#/definitions/wpapps.Setting"
+          },
+          "type": "array"
+        },
+        "backend": {
+          "enum": ["DOM", 0, "SUBSYSTEM", 1],
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Backend"
+        }
+      },
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Manifest"
+    },
+    "wpapps.Dropdown": {
+      "properties": {
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Dropdown"
+    },
+    "wpapps.Setting": {
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "setting_type": {
+          "enum": ["STRING", 0, "NUMBER", 1, "BOOLEAN", 2, "DROPDOWN", 3],
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Setting Type"
+        },
+        "default_string_value": {
+          "type": "string"
+        },
+        "default_number_value": {
+          "type": "integer"
+        },
+        "default_boolean_value": {
+          "type": "boolean"
+        },
+        "default_dropdown_values": {
+          "$ref": "#/definitions/wpapps.Dropdown",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Setting"
+    }
+  }
+}
